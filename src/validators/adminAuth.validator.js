@@ -1,5 +1,6 @@
 const { isEmail, isEmpty } = require('../helpers/validation.helper')
-/* Store validator */
+
+/* register validator */
 const store = (data) => {
     let errors = {}
 
@@ -18,6 +19,21 @@ const store = (data) => {
     }
 }
 
+/**login */
+const login = async(data) => {
+    let errors = {}
+
+    if (!data.email || isEmpty(data.email)) errors.email = "E-mail is required."
+    if (data.email && !isEmail(data.email)) errors.email = "Address isn't valid"
+    if (!data.password || isEmpty(data.password)) errors.password = "Password is required."
+    
+    return {
+        errors,
+        isValid: Object.keys(errors).length === 0
+    }
+}
+
 module.exports = {
-    store
+    store,
+    login
 }
